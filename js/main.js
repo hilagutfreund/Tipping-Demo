@@ -69,11 +69,7 @@ var tipApp = angular.module('tipApp', ['ngRoute', 'ui.router']);
             controller: "thankyouController"
          })
 
-         //  .state('custom', {
-         //    url: '/custom',
-         //    templateUrl: "templates/customScreen.html", 
-         //    controller: 'customController'
-         // })
+         
 
     });
    
@@ -116,7 +112,7 @@ var tipApp = angular.module('tipApp', ['ngRoute', 'ui.router']);
 
         //get a list of all participants from database
         var db = firebase.firestore();
-          db.collection("participants")
+          db.collection("Demo-Participants")
             .get()
             .then(function(querySnapshot) {
                 var list = [];
@@ -187,7 +183,7 @@ var tipApp = angular.module('tipApp', ['ngRoute', 'ui.router']);
 
         
         //read current "user-1/clicked" value
-        db.collection("participants")
+        db.collection("Demo-Participants")
           .doc($scope.userid)
           .get()
           .then( function(doc){
@@ -202,7 +198,7 @@ var tipApp = angular.module('tipApp', ['ngRoute', 'ui.router']);
             history = $scope.data.history || [];
             history.push({clicked:val, IA:$scope.data.IA, device:$scope.data.device, timestamp:new Date().toLocaleString()}); 
         
-          db.collection("participants")
+          db.collection("Demo-Participants")
           .doc($scope.userid)
           .set({
             clicked:val,
@@ -216,24 +212,7 @@ var tipApp = angular.module('tipApp', ['ngRoute', 'ui.router']);
         }
 
 
-    //Add buttons click handlers
-        // $(function(){
-        //   $("#Button_10").click(function(){
-        //     writeClickedButton("10%");
-        //   })
-        //   $("#Button_15").click(function(){
-        //     writeClickedButton("15%");
-        //   })
-        //   $("#Button_18").click(function(){
-        //     writeClickedButton("18%");
-        //   })
-        //   // $("#Button_custom").click(function(){
-        //   //   writeClickedButton("+custom tip");
-        //   // })
-        //   $("#Button_none").click(function(){
-        //     writeClickedButton("");
-        //   })
-        // });
+    
 
         $scope.tipClicked = function(val){
             writeClickedButton(val);
@@ -241,35 +220,12 @@ var tipApp = angular.module('tipApp', ['ngRoute', 'ui.router']);
 
         }
 
-    //Listen to user-1/* data changes
-        // db.collection("participants")
-        //   .doc($scope.userid)
-        //   .onSnapshot(function(doc){
-        //     showClickedButton(doc);
-        //   });
-
-    //Read the user document data and write the clickd button value to the DOM
-        // function showClickedButton(doc){
-        //     var user1 = doc.data();
-        //     console.log("IA" + user1.IA); 
-        //     console.log("device" + user1.device);
-        //     console.log(doc.id + "->clicked:" + user1.clicked);
-        //     $scope.tipClicked = user1.clicked; 
-        //     $("#TipAmount").html(user1.clicked);
-        //     console.log($scope.tipClicked); 
-
-        // }  
     });
 
 
       
     tipApp.controller('confirmationController', function($scope, $rootScope, $timeout, $state, $stateParams) {
-        //var usertip = $stateParams.useridtip; 
-        //console.log(usertip); 
-        //var strings = usertip.split("tip");
-        //console.log(strings); 
-        //$scope.userid = strings[0]; 
-        //$scope.tip = strings[1];
+ 
 
         $scope.userid = $stateParams.userid;
         $scope.tip = $stateParams.tip; 
@@ -285,7 +241,7 @@ var tipApp = angular.module('tipApp', ['ngRoute', 'ui.router']);
         var db = firebase.firestore();
 
         //read current "user-1/clicked" value
-        db.collection("participants")
+        db.collection("Demo-Participants")
           .doc($scope.userid)
           .get()
           .then( function(doc){
@@ -335,30 +291,7 @@ var tipApp = angular.module('tipApp', ['ngRoute', 'ui.router']);
           }
          }
 
-      // $scope.getLinkUrl = function(){
-      //           return $state.href($scope.url, {userid: $scope.userid});
-      //       };
 
-
-      //   function findUrl(urldata){
-      //     switch (urldata){
-      //       case 'at':
-      //           $scope.url='ambiguous';
-      //           console.log("url should be ambiguous: " + $scope.url); 
-      //           break;
-      //       case 'st':
-      //           $scope.url='tipjar';
-      //           console.log("url should be tipjar: " + $scope.url);
-      //           break;
-      //       case 'bt':
-      //           $scope.url='barista';
-      //           console.log("url should be tipjar: " + $scope.url); 
-      //           break; 
-      //       default:
-      //           $scope.url="start";
-      //           break; 
-      //     }
-      //    }
 
 
     //Update user-1/clicked value
@@ -368,7 +301,7 @@ var tipApp = angular.module('tipApp', ['ngRoute', 'ui.router']);
         history.push({clicked:val, IA:$scope.data.IA, device:$scope.data.device,finalTip:$scope.tip, showMobile:"false", timestamp:new Date().toLocaleString()}); 
         
 
-          db.collection("participants")
+          db.collection("Demo-Participants")
           .doc($scope.userid)
           .set({
             clicked:val,
@@ -381,15 +314,6 @@ var tipApp = angular.module('tipApp', ['ngRoute', 'ui.router']);
           });
         }
 
-    //Add buttons click handlers
-      //   $(function(){
-      //     $("#Print").click(function(){
-      //       writeClickedButton("print receipt");
-      //     })
-      //     $("#None").click(function(){
-      //       writeClickedButton("no receipt");
-      //   });
-      // });
 
     $scope.onBtnClick = function(msg){
         writeClickedButton(msg);
@@ -397,25 +321,12 @@ var tipApp = angular.module('tipApp', ['ngRoute', 'ui.router']);
     }
 
     //Listen to user-1/* data changes
-        db.collection("participants")
+        db.collection("Demo-Participants")
           .doc($scope.userid)
           .onSnapshot(function(doc){
             //showClickedButton(doc);
           });
 
-    //Read the user document data and write the clickd button value to the DOM
-        // function showClickedButton(doc){
-        //     var user1 = doc.data();
-        //     console.log("IA" + user1.IA); 
-        //     console.log("device" + user1.device);
-        //     console.log(doc.id + "->clicked:" + user1.clicked);
-        //     $scope.tipClicked = user1.clicked; //in case we need this at some point to know final tip amount... but won't work for custom tip.. oops. will need to get every click + record the final number
-        //     $("#TipAmount").html(user1.clicked);
-        //     console.log($scope.tipClicked); 
-
-        // }
-       
-    //});
 
     });
 
@@ -436,7 +347,7 @@ var tipApp = angular.module('tipApp', ['ngRoute', 'ui.router']);
 
         
         //read current "user-1/clicked" value
-        db.collection("participants")
+        db.collection("Demo-Participants")
           .doc($scope.userid)
           .get()
           .then( function(doc){
@@ -450,7 +361,7 @@ var tipApp = angular.module('tipApp', ['ngRoute', 'ui.router']);
           });
 
  //Listen to user-1/* data changes
-        db.collection("participants")
+        db.collection("Demo-Participants")
           .doc($scope.userid)
           .onSnapshot(function(doc){
             $timeout(function(){
@@ -485,7 +396,7 @@ var tipApp = angular.module('tipApp', ['ngRoute', 'ui.router']);
             history.push({clicked:val, IA:$scope.data.IA, device:$scope.data.device, showMobile:"off", timestamp:new Date().toLocaleString()}); 
         
 
-             db.collection("participants")
+             db.collection("Demo-Participants")
               .doc($scope.userid)
               .set({
                 clicked:val,
@@ -545,7 +456,7 @@ var tipApp = angular.module('tipApp', ['ngRoute', 'ui.router']);
         var db = firebase.firestore();
 
         //read current "user-1/clicked" value
-        db.collection("participants")
+        db.collection("Demo-Participants")
           .doc($scope.userid)
           .get()
           .then( function(doc){
@@ -556,44 +467,6 @@ var tipApp = angular.module('tipApp', ['ngRoute', 'ui.router']);
 
        
 
-        // $scope.pickURL = function(){
-        //     $state.go($scope.url, {userid: $scope.userid}); 
-        // }
-
-        // function findUrl(urldata){
-        //   switch (urldata){
-        //     case 'am':
-        //         $scope.url='ambiguous';
-        //         console.log("url should be ambiguous: " + $scope.url); 
-        //         break;
-        //     case 'sm':
-        //         $scope.url='tipjar';
-        //         console.log("url should be tipjar: " + $scope.url);
-        //         break;
-        //     case 'bm':
-        //         $scope.url='barista';
-        //         console.log("url should be barista: " + $scope.url); 
-        //         break; 
-        //       case 'at':
-        //     $scope.url='ambiguous';
-        //     console.log("url should be ambiguous: " + $scope.url); 
-        //     break;
-        // case 'st':
-        //     $scope.url='tipjar';
-        //     console.log("url should be tipjar: " + $scope.url);
-        //     break;
-        // case 'bt':
-        //     $scope.url='barista';
-        //     console.log("url should be barista: " + $scope.url); 
-        //     break; 
-        //     default:
-        //         $scope.url="start";
-        //         break; 
-        //   }
-        //  }
-
-
-
     //Update user-1/clicked value
         function writeClickedButton(val){
         var history; 
@@ -601,7 +474,7 @@ var tipApp = angular.module('tipApp', ['ngRoute', 'ui.router']);
         history.push({clicked:val, IA:$scope.data.IA, device:$scope.data.device, finalTip:"0", showMobile:"on", timestamp:new Date().toLocaleString()}); 
         
 
-         db.collection("participants")
+         db.collection("Demo-Participants")
           .doc($scope.userid)
           .set({
             clicked:val,
@@ -615,15 +488,7 @@ var tipApp = angular.module('tipApp', ['ngRoute', 'ui.router']);
         }
 
 
-    //Add buttons click handlers
-      //   $(function(){
-      //     $("#Print").click(function(){
-      //       writeClickedButton("print receipt");
-      //     })
-      //     $("#None").click(function(){
-      //       writeClickedButton("no receipt");
-      //   });
-      // });
+    
       $scope.printReceipt=function(){
         writeClickedButton("print receipt");
         $state.go("thanks");
